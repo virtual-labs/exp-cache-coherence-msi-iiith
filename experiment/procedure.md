@@ -1,10 +1,9 @@
-## Procedure
-
 Follow these step-by-step instructions to understand and explore the MSI Cache Coherence Protocol using the interactive simulator.
 
 ### Step 1: Understanding the Interface
 
 1. **Observe the Initial State**
+
    - Notice that both processor caches start with all cache lines in the **Invalid (I)** state
    - The state diagrams show the current state of each processor's cache
    - The transaction log is initially empty
@@ -18,12 +17,14 @@ Follow these step-by-step instructions to understand and explore the MSI Cache C
 ### Step 2: Basic Read Operations
 
 1. **First Read Operation**
+
    - Select **Processor 0** from the dropdown
    - Choose **PrRd (Processor Read)** as the operation type
    - Select memory address **0x0**
    - Click **"Execute Operation"**
 
 2. **Observe the Results**
+
    - Cache line at index 0 in Processor 0 transitions from **I → S**
    - Bus activity shows **BusRd** transaction
    - Data is loaded from memory into the cache
@@ -38,6 +39,7 @@ Follow these step-by-step instructions to understand and explore the MSI Cache C
 ### Step 3: Write Operations and Invalidations
 
 1. **Write to Shared Data**
+
    - Keep **Processor 1** selected
    - Change operation to **PrWr (Processor Write)**
    - Select address **0x0** (same as previous reads)
@@ -53,6 +55,7 @@ Follow these step-by-step instructions to understand and explore the MSI Cache C
 ### Step 4: Modified State Operations
 
 1. **Read from Modified Cache**
+
    - With **Processor 1** still selected
    - Change back to **PrRd (Processor Read)**
    - Read from address **0x0**
@@ -67,6 +70,7 @@ Follow these step-by-step instructions to understand and explore the MSI Cache C
 ### Step 5: Cache Line Sharing After Modification
 
 1. **Another Processor Reads Modified Data**
+
    - Select **Processor 0**
    - Choose **PrRd (Processor Read)**
    - Read from address **0x0** (which Processor 1 has modified)
@@ -81,6 +85,7 @@ Follow these step-by-step instructions to understand and explore the MSI Cache C
 ### Step 6: Exploring Different Addresses
 
 1. **Access Different Memory Locations**
+
    - Try operations on addresses **0x1**, **0x2**, and **0x3**
    - Observe how different cache lines are affected
    - Notice that cache coherence operates independently for each cache line
@@ -93,6 +98,7 @@ Follow these step-by-step instructions to understand and explore the MSI Cache C
 ### Step 7: Performance Analysis
 
 1. **Monitor Cache Performance**
+
    - Pay attention to the hit/miss ratios for each processor
    - Notice how coherence protocol overhead affects performance
    - Compare performance for read-only vs. read-write workloads
@@ -105,6 +111,7 @@ Follow these step-by-step instructions to understand and explore the MSI Cache C
 ### Step 8: Advanced Scenarios
 
 1. **False Sharing Simulation**
+
    - Have both processors write to different addresses that map to the same cache line
    - Observe unnecessary invalidations due to spatial locality
 

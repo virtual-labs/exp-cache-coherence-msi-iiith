@@ -1,5 +1,3 @@
-### Aim of the experiment
-
 To understand and simulate the MSI (Modified-Shared-Invalid) cache coherence protocol used in multiprocessor systems. This experiment aims to:
 
 1. **Demonstrate Cache Coherence**: Understand how the MSI protocol maintains data consistency across multiple processor caches in a shared memory multiprocessor system.
