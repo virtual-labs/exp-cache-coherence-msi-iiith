@@ -1,5 +1,3 @@
-## Theory
-
 ### Introduction to Cache Coherence
 
 In multiprocessor systems, each processor typically has its own cache to improve performance by storing frequently accessed data closer to the CPU. However, this creates a fundamental problem: when multiple processors cache the same memory location, how do we ensure that all processors see a consistent view of memory?
@@ -13,12 +11,14 @@ The **MSI (Modified-Shared-Invalid)** protocol is one of the fundamental cache c
 #### Cache Line States
 
 1. **Modified (M)**
+
    - The cache line has been modified (written) by this processor
    - This processor has the only valid copy; main memory is stale
    - This processor has exclusive ownership and can read/write without bus transactions
    - Responsibility to write back to memory when evicted
 
 2. **Shared (S)**
+
    - The cache line is unmodified and potentially shared with other processors
    - Multiple processors may have copies in the Shared state
    - Main memory is up-to-date
@@ -45,15 +45,18 @@ The **MSI (Modified-Shared-Invalid)** protocol is one of the fundamental cache c
 The MSI protocol defines specific rules for how cache lines transition between states:
 
 #### From Invalid (I) State:
+
 - **PrRd → S**: On a processor read miss, issue BusRd, obtain data, and move to Shared state
 - **PrWr → M**: On a processor write miss, issue BusRdX, obtain exclusive access, and move to Modified state
 
 #### From Shared (S) State:
+
 - **PrRd → S**: Read hit, remain in Shared state
 - **PrWr → M**: Issue BusUpgr to invalidate other copies, then move to Modified state
 - **BusRdX → I**: Another processor issued BusRdX, invalidate local copy
 
 #### From Modified (M) State:
+
 - **PrRd → M**: Read hit, remain in Modified state
 - **PrWr → M**: Write hit, remain in Modified state
 - **BusRd → S**: Another processor wants to read, share the data, write back to memory
@@ -68,11 +71,13 @@ The MSI protocol relies on **bus snooping**, where each cache controller monitor
 The MSI protocol involves several performance trade-offs:
 
 **Advantages:**
+
 - Ensures data consistency across all processors
 - Relatively simple implementation
 - Good performance for read-shared data
 
 **Disadvantages:**
+
 - Write operations on shared data can be expensive due to invalidations
 - False sharing can cause unnecessary invalidations
 - Bus bandwidth can become a bottleneck
@@ -80,11 +85,13 @@ The MSI protocol involves several performance trade-offs:
 ### Applications in Modern Systems
 
 The MSI protocol serves as the foundation for more complex protocols used in modern multicore processors:
+
 - **MESI**: Adds an Exclusive state to reduce bus traffic
 - **MOESI**: Adds an Owned state for better sharing of modified data
 - **Directory-based protocols**: Scale beyond bus-based systems
 
 Understanding the MSI protocol is crucial for:
+
 - Computer architecture design
 - Parallel programming optimization
 - Performance analysis of multicore applications
