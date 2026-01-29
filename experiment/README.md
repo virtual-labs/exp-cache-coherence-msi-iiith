@@ -1,3 +1,67 @@
+# MSI Cache Coherence Protocol Experiment
+
+## Experiment Overview
+
+This experiment implements an interactive simulation of the MSI (Modified-Shared-Invalid) cache coherence protocol used in multiprocessor systems. The experiment is designed to help students understand how cache coherence is maintained across multiple processors in shared memory systems.
+
+### Learning Objectives
+
+Students will be able to:
+1. Understand the MSI cache coherence protocol and its three states
+2. Analyze state transitions in response to processor operations
+3. Evaluate the performance implications of cache coherence protocols
+4. Identify bus transactions and their role in maintaining coherence
+5. Apply knowledge of cache coherence to optimize parallel programs
+
+### Experiment Features
+
+- **Interactive State Diagrams**: Visual representation of cache state transitions
+- **Real-time Cache Monitoring**: Live view of cache contents and states for both processors
+- **Transaction Logging**: Complete history of bus transactions and state changes
+- **Performance Metrics**: Hit/miss ratios and cache performance analysis
+- **Mobile-Responsive Design**: Optimized for both desktop and mobile devices
+
+### Technical Implementation
+
+The simulation is implemented using:
+- **HTML5**: Semantic structure and accessibility
+- **CSS3**: Mobile-first responsive design with Virtual Labs color scheme
+- **Vanilla JavaScript**: Complete MSI protocol simulation logic
+- **SVG Graphics**: Interactive state transition diagrams
+
+### File Structure
+
+```
+experiment/
+├── aim.md                    # Experiment objectives
+├── experiment-name.md        # Experiment title
+├── theory.md                # Theoretical background
+├── procedure.md             # Step-by-step instructions
+├── references.md            # Citations and further reading
+├── contributors.md          # Team information
+├── pretest.json            # Pre-experiment assessment (9 questions)
+├── posttest.json           # Post-experiment assessment (9 questions)
+├── simulation/
+│   ├── index.html          # Main simulation interface
+│   ├── css/
+│   │   └── main.css        # Responsive styling
+│   ├── js/
+│   │   └── main.js         # MSI protocol simulation logic
+│   └── images/             # Simulation assets
+└── images/                 # Documentation images
+```
+
+### Contributors
+
+**Subject Matter Expert:**
+- Prof. Suresh Purini (IIIT Hyderabad)
+
+**Developers:**
+- Sankalp Bhat (IIIT Hyderabad)
+- Siddhant Garg (IIIT Hyderabad)
+
+---
+
 # Steps to Create an Experiment
 Welcome to the experiment development process for developers involved in the Virtual Labs project. This guide will help you create an experiment designed to explain the lab topic. 
 

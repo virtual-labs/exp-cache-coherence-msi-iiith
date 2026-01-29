@@ -2,38 +2,151 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "What does the 'M' state represent in the MSI cache coherence protocol?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Memory state - data is only in main memory",
+        "b": "Modified state - cache line has been modified and is exclusive to this processor",
+        "c": "Multiple state - data is shared across multiple caches",
+        "d": "Master state - this processor controls all cache operations"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect. The 'M' state does not refer to memory state in the MSI protocol.",
+        "b": "Correct. The Modified state indicates that the cache line has been modified by this processor and is exclusive to it, with main memory being stale.",        "c": "Incorrect. Multiple or shared state is represented by 'S' in the MSI protocol.",
+        "d": "Incorrect. There is no master state concept in the MSI protocol."
       },
-      "correctAnswer": "a",
+      "correctAnswer": "b",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "In a cache coherence protocol, what problem are we trying to solve?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Reducing memory access time for single processors",
+        "b": "Increasing cache size to store more data",
+        "c": "Ensuring consistent view of memory across multiple processors with private caches",
+        "d": "Optimizing cache replacement algorithms"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect. This is a general caching benefit, not specific to coherence.",
+        "b": "Incorrect. Cache coherence is not about increasing cache size.",
+        "c": "Correct. Cache coherence protocols ensure that all processors see a consistent view of memory even when they have private caches.",
+        "d": "Incorrect. Cache coherence is about consistency, not replacement policies."
       },
       "correctAnswer": "c",
+      "difficulty": "beginner"    },
+    {
+      "question": "What does 'S' state mean in the MSI protocol?",
+      "answers": {
+        "a": "Synchronized - all processors are synchronized on this cache line",
+        "b": "Stale - the data in cache is outdated",
+        "c": "Secure - the cache line is protected from modifications",
+        "d": "Shared - the cache line is unmodified and may be shared with other processors"
+      },
+      "explanations": {
+        "a": "Incorrect. 'S' does not stand for synchronized in the MSI protocol.",
+        "b": "Incorrect. Shared state data is not stale; it's consistent with memory.",
+        "c": "Incorrect. 'S' does not represent a security state.",
+        "d": "Correct. The Shared state means the cache line is unmodified and potentially shared with other processors, with main memory being up-to-date."
+      },
+      "correctAnswer": "d",
       "difficulty": "beginner"
+    },
+    {
+      "question": "When a processor wants to read data that is not in its cache (cache miss), what bus transaction is typically issued?",
+      "answers": {
+        "a": "BusWrite",
+        "b": "BusRd",
+        "c": "BusRdX",
+        "d": "BusInvalidate"
+      },
+      "explanations": {
+        "a": "Incorrect. BusWrite is not a standard transaction in MSI protocol.",
+        "b": "Correct. BusRd (Bus Read) is issued when a processor needs to read data that results in a cache miss.",
+        "c": "Incorrect. BusRdX is used when exclusive access is needed for writing.",
+        "d": "Incorrect. BusInvalidate is not the transaction for read misses."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },    {
+      "question": "What happens to other processors' cache lines when a BusRdX transaction is observed on the bus?",
+      "answers": {
+        "a": "They transition to Invalid state if they have the same cache line",
+        "b": "They transition to Modified state",
+        "c": "They remain unchanged",
+        "d": "They transition to Shared state"
+      },
+      "explanations": {
+        "a": "Correct. When a BusRdX is observed, any processor with the same cache line must invalidate it to ensure exclusive access for the requesting processor.",
+        "b": "Incorrect. Other processors cannot transition to Modified state due to another processor's BusRdX.",
+        "c": "Incorrect. Cache lines with the same address must respond to BusRdX.",
+        "d": "Incorrect. BusRdX requires exclusive access, so other copies must be invalidated, not shared."
+      },      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "In the MSI protocol, when does a cache line in Modified state transition to Shared state?",
+      "answers": {
+        "a": "When the processor performs a write operation",
+        "b": "When another processor issues a BusRd for the same cache line",
+        "c": "When the cache line is accessed for reading locally",
+        "d": "When the processor is switched to a different task"
+      },
+      "explanations": {
+        "a": "Incorrect. Write operations on Modified state typically keep the state as Modified.",
+        "b": "Correct. When another processor issues a BusRd for a cache line in Modified state, the owning processor must share the data and transition to Shared state, writing back to memory.",
+        "c": "Incorrect. Local reads to Modified state cache lines remain Modified.",
+        "d": "Incorrect. Task switching doesn't directly affect cache coherence states."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },    {
+      "question": "What is the primary advantage of bus snooping in cache coherence protocols?",
+      "answers": {
+        "a": "It allows caches to monitor bus transactions and maintain coherence automatically",
+        "b": "It reduces the cache miss penalty",
+        "c": "It increases the cache size effectively",
+        "d": "It eliminates the need for main memory"
+      },
+      "explanations": {
+        "a": "Correct. Bus snooping allows each cache controller to monitor bus transactions and automatically maintain cache coherence by responding to relevant transactions.",
+        "b": "Incorrect. Snooping itself doesn't reduce miss penalty; it maintains coherence.",
+        "c": "Incorrect. Snooping doesn't change cache size.",
+        "d": "Incorrect. Snooping doesn't eliminate the need for main memory."
+      },      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Consider two processors P0 and P1, both initially have cache line X in Shared state. If P0 wants to write to X, what sequence of events occurs?",
+      "answers": {
+        "a": "P0 writes directly, P1's cache remains in Shared state",
+        "b": "P0 issues BusRdX, P1 invalidates its copy, P0 transitions to Modified",
+        "c": "Both processors transition to Modified state simultaneously",
+        "d": "P0 issues BusUpgr, P1 invalidates its copy, P0 transitions to Modified"
+      },
+      "explanations": {
+        "a": "Incorrect. Writing to a Shared cache line requires invalidating other copies.",
+        "b": "Incorrect. BusRdX is used when the cache line is not present; here it's already in Shared state.",
+        "c": "Incorrect. Only one processor can be in Modified state for a given cache line.",
+        "d": "Correct. When writing to a cache line in Shared state, the processor issues BusUpgr (Bus Upgrade) to invalidate other copies and gain exclusive access, transitioning to Modified state."
+      },
+      "correctAnswer": "d",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "What is a potential performance problem with the basic MSI protocol?",
+      "answers": {
+        "a": "False sharing can cause unnecessary invalidations and bus traffic",
+        "b": "It doesn't support multiprocessor systems",
+        "c": "It requires too much cache memory",
+        "d": "It cannot handle read operations efficiently"
+      },
+      "explanations": {
+        "a": "Correct. False sharing occurs when different processors access different parts of the same cache line, causing unnecessary invalidations and bus traffic, reducing performance.",
+        "b": "Incorrect. MSI is specifically designed for multiprocessor systems.",
+        "c": "Incorrect. MSI doesn't inherently require more cache memory.",
+        "d": "Incorrect. MSI handles read operations efficiently through the Shared state."
+      },
+      "correctAnswer": "a",
+      "difficulty": "advanced"
     }
   ]
 }

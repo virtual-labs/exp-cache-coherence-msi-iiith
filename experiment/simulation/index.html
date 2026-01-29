@@ -1,13 +1,253 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<!-- Add CSS at the head of HTML file -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSI Cache Coherence Protocol Simulator</title>
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-		<!-- Your code goes here-->
+    <!-- Content Container -->
+    <div class="content-container" id="content-container">
+        <!-- 1. Title -->
+        <section class="hero is-primary">
+            <div class="hero-body">
+                <div class="container has-text-centered">
+                    <h1 class="title is-2">MSI Cache Coherence Protocol Simulator</h1>
+                    <p class="subtitle is-5">
+                        Interactive demonstration of the MSI (Modified-Shared-Invalid) cache coherence protocol 
+                        for multiprocessor systems. Observe how cache states transition and maintain data consistency.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-	<!-- Add JS at the bottom of HTML file --> 
-        <script src="./js/main.js"></script>
+        <!-- 2. How to Use This Simulator -->
+        <section class="section">
+            <div class="container">
+                <div class="box">
+                    <h2 class="title is-3 has-text-centered">How to Use This Simulator</h2>
+                    
+                    <div class="columns">
+                        <div class="column is-half">
+                            <div class="content">
+                                <h4 class="subtitle is-5">MSI Protocol States:</h4>
+                                <ul>
+                                    <li><strong>M (Modified):</strong> Cache line is modified, exclusive to this processor</li>
+                                    <li><strong>S (Shared):</strong> Cache line is shared, read-only, consistent with memory</li>
+                                    <li><strong>I (Invalid):</strong> Cache line is invalid, not present in this cache</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="column is-half">
+                            <div class="content">
+                                <h4 class="subtitle is-5">Instructions:</h4>
+                                <ol>
+                                    <li>Select a processor (P0 or P1)</li>
+                                    <li>Choose an operation (Read or Write)</li>
+                                    <li>Select a memory address (0x0 to 0x3)</li>
+                                    <li>For writes, enter a data value</li>
+                                    <li>Click "Execute Operation" to see the protocol in action</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Simulation Controls -->
+        <section class="section">
+            <div class="container">
+                <div class="box">
+                    <h3 class="title is-4 has-text-centered">Simulation Controls</h3>
+                    
+                    <div class="columns is-multiline">
+                        <div class="column is-half-tablet is-one-quarter-desktop">
+                            <div class="field">
+                                <label class="label">Processor</label>
+                                <div class="control">
+                                    <div class="select is-fullwidth">
+                                        <select id="processor-select">
+                                            <option value="0">Processor 0</option>
+                                            <option value="1">Processor 1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="column is-half-tablet is-one-quarter-desktop">
+                            <div class="field">
+                                <label class="label">Operation Type</label>
+                                <div class="control">
+                                    <div class="select is-fullwidth">
+                                        <select id="operation-select">
+                                            <option value="PrRd">PrRd (Processor Read)</option>
+                                            <option value="PrWr">PrWr (Processor Write)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="column is-half-tablet is-one-quarter-desktop">
+                            <div class="field">
+                                <label class="label">Memory Address</label>
+                                <div class="control">
+                                    <div class="select is-fullwidth">
+                                        <select id="address-select">
+                                            <option value="0">0x0</option>
+                                            <option value="1">0x1</option>
+                                            <option value="2">0x2</option>
+                                            <option value="3">0x3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="column is-half-tablet is-one-quarter-desktop">
+                            <div class="field">
+                                <label class="label">Data Value (for writes)</label>
+                                <div class="control">
+                                    <input type="text" id="data-input" class="input" placeholder="Enter data value">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="has-text-centered">
+                        <button id="execute-btn" class="button is-primary is-large">Execute Operation</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Cache State Diagrams -->
+        <section class="section">
+            <div class="container">
+                <h3 class="title is-4 has-text-centered">Cache State Diagrams</h3>
+                <div class="columns">
+                    <div class="column is-half">
+                        <div class="box">
+                            <div class="notification processor-0-header has-text-centered">
+                                <strong>Processor 0 Cache State</strong>
+                            </div>
+                            <div class="content">
+                                <svg id="p0-diagram" viewBox="0 0 500 470" class="state-diagram">
+                                    <!-- MSI State Diagram will be rendered here -->
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div class="box">
+                            <div class="notification processor-1-header has-text-centered">
+                                <strong>Processor 1 Cache State</strong>
+                            </div>
+                            <div class="content">
+                                <svg id="p1-diagram" viewBox="0 0 500 470" class="state-diagram">
+                                    <!-- MSI State Diagram will be rendered here -->
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>        <!-- 5. Processor Cache States -->
+        <section class="section">
+            <div class="container">
+                <h3 class="title is-4 has-text-centered">Processor Cache States</h3>
+                
+                <div class="columns">
+                    <div class="column is-half">
+                        <div class="box">
+                            <h4 class="title is-5 has-text-centered">Processor 0 Cache</h4>
+                            <div class="table-container">
+                                <table class="table is-fullwidth is-striped cache-table">
+                                    <thead>
+                                        <tr class="has-background-success">
+                                            <th>Cache Index</th>
+                                            <th>State</th>
+                                            <th>Data</th>
+                                            <th>Valid</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="p0-cache-body">
+                                        <!-- Cache entries will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="notification is-light has-text-centered">
+                                <strong>Cache Performance:</strong> <span id="p0-performance">Hits: 0, Misses: 0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="box">
+                            <h4 class="title is-5 has-text-centered">Processor 1 Cache</h4>
+                            <div class="table-container">
+                                <table class="table is-fullwidth is-striped cache-table">
+                                    <thead>
+                                        <tr class="has-background-success">
+                                            <th>Cache Index</th>
+                                            <th>State</th>
+                                            <th>Data</th>
+                                            <th>Valid</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="p1-cache-body">
+                                        <!-- Cache entries will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="notification is-light has-text-centered">
+                                <strong>Cache Performance:</strong> <span id="p1-performance">Hits: 0, Misses: 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Bus Transaction Log and State Transitions -->
+        <section class="section">
+            <div class="container">
+                <div class="box">
+                    <h3 class="title is-4 has-text-centered">Bus Transaction Log & State Transitions</h3>
+                    
+                    <div id="log-empty" class="notification is-info has-text-centered">
+                        <p>No operations performed yet. Execute an operation to see the transaction log.</p>
+                    </div>
+                    
+                    <div id="log-table-container" class="table-container" style="display: none;">
+                        <table class="table is-fullwidth is-striped log-table">
+                            <thead>
+                                <tr class="has-background-success">
+                                    <th>Processor Activity</th>
+                                    <th>Bus Activity</th>
+                                    <th>P0 Content</th>
+                                    <th>P0 State</th>
+                                    <th>P0 Transition</th>
+                                    <th>P1 Content</th>
+                                    <th>P1 State</th>
+                                    <th>P1 Transition</th>
+                                    <th>Memory</th>
+                                </tr>
+                            </thead>
+                            <tbody id="log-table-body">
+                                <!-- Log entries will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>        </section>
+    </div>
+
+    <script src="./js/main.js"></script>
 </body>
 </html>
