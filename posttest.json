@@ -1,0 +1,155 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "After completing the MSI simulation, what can you conclude about the Invalid (I) state?",
+      "answers": {
+        "a": "It represents the initial state and any cache line that is not valid in the current cache",
+        "b": "It is the most efficient state for all operations",
+        "c": "It can only be reached from the Modified state",
+        "d": "It allows direct read and write operations"
+      },
+      "explanations": {
+        "a": "Correct. The Invalid state is the initial state of all cache lines and represents any cache line that is not valid or present in the current cache.",
+        "b": "Incorrect. Invalid state requires bus transactions for any access, making it less efficient.",
+        "c": "Incorrect. Invalid state can be reached from any state through various transitions.",
+        "d": "Incorrect. Invalid state requires bus transactions to access data."
+      },      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Based on the simulation results, which cache state allows for the most efficient read operations?",
+      "answers": {
+        "a": "Invalid state",
+        "b": "Modified state only", 
+        "c": "None of the states allow efficient reads",
+        "d": "Both Modified and Shared states"
+      },
+      "explanations": {
+        "a": "Incorrect. Invalid state requires bus transactions for reads.",
+        "b": "Incorrect. While Modified allows efficient reads, Shared state also allows efficient reads.",
+        "c": "Incorrect. Modified and Shared states provide efficient read access.",
+        "d": "Correct. Both Modified and Shared states allow local cache hits for read operations, making them efficient."
+      },
+      "correctAnswer": "d",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What did you observe about write operations to cache lines in Shared state during the simulation?",
+      "answers": {
+        "a": "They complete without any bus activity",
+        "b": "They require a BusUpgr transaction to invalidate other copies",
+        "c": "They are not allowed in MSI protocol",
+        "d": "They automatically convert all other caches to Modified state"
+      },
+      "explanations": {
+        "a": "Incorrect. Writes to Shared state require bus transactions to maintain coherence.",
+        "b": "Correct. Writing to a cache line in Shared state requires a BusUpgr (Bus Upgrade) transaction to invalidate other copies and gain exclusive access.",
+        "c": "Incorrect. Writes to Shared state are allowed but require protocol actions.",
+        "d": "Incorrect. Other caches are invalidated, not converted to Modified."
+      },      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "From your simulation experience, what happens when a processor reads a memory location that another processor has in Modified state?",
+      "answers": {
+        "a": "The processor with Modified state writes back to memory and both transition to Shared state",
+        "b": "The read fails until the modified data is written to memory",
+        "c": "Both processors end up with the data in Modified state",
+        "d": "The requesting processor gets stale data from memory"
+      },
+      "explanations": {
+        "a": "Correct. When another processor reads data in Modified state, the owning processor must write back to memory and both processors transition to Shared state.",
+        "b": "Incorrect. The read succeeds with proper coherence protocol handling.",
+        "c": "Incorrect. Only one processor can have a cache line in Modified state.",
+        "d": "Incorrect. The coherence protocol ensures the requesting processor gets current data."
+      },      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Based on your simulation observations, what is the key difference between BusRd and BusRdX transactions?",
+      "answers": {
+        "a": "BusRdX requests exclusive access, BusRd requests shared access",
+        "b": "BusRd is for writes, BusRdX is for reads",
+        "c": "BusRdX is faster than BusRd",
+        "d": "There is no functional difference between them"
+      },
+      "explanations": {
+        "a": "Correct. BusRd requests data for reading (shared access), while BusRdX requests exclusive access for modification.",
+        "b": "Incorrect. BusRd is for reads, not writes.",
+        "c": "Incorrect. The speed difference is not the primary distinction.",
+        "d": "Incorrect. They serve different purposes in the protocol."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "During the simulation, when did you observe the highest bus traffic?",
+      "answers": {
+        "a": "When processors read data already in their caches",
+        "b": "When processors access completely different memory addresses",
+        "c": "When processors frequently write to the same memory locations",
+        "d": "When processors are idle"
+      },
+      "explanations": {
+        "a": "Incorrect. Cache hits don't generate bus traffic.",
+        "b": "Incorrect. Different addresses don't cause interference.",
+        "c": "Correct. Frequent writes to the same memory locations cause invalidations and bus upgrade transactions, resulting in the highest bus traffic.",
+        "d": "Incorrect. Idle processors don't generate bus traffic."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What insight about cache performance did you gain from analyzing the hit/miss ratios in the simulation?",
+      "answers": {
+        "a": "Miss ratio is always zero in multiprocessor systems",
+        "b": "Coherence protocol operations can convert hits to misses",
+        "c": "Write operations never affect cache performance",
+        "d": "Cache performance is independent of access patterns"
+      },
+      "explanations": {
+        "a": "Incorrect. Multiprocessor systems have cache misses due to coherence and capacity issues.",
+        "b": "Correct. Coherence protocol operations like invalidations can cause subsequent accesses to become misses even if the data was previously cached.",
+        "c": "Incorrect. Write operations and their coherence actions significantly affect performance.",
+        "d": "Incorrect. Access patterns greatly influence cache performance."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Considering a real-world scenario, if you observed frequent state transitions in your simulation, what would be the most likely cause and solution?",
+      "answers": {
+        "a": "Insufficient cache size; solution is to increase cache associativity only",
+        "b": "False sharing where different processors access different parts of the same cache line; solution is to restructure data layout",
+        "c": "Too many processors; solution is to reduce the number of cores",
+        "d": "Slow memory; solution is to increase memory frequency only"
+      },
+      "explanations": {
+        "a": "Incorrect. Associativity alone doesn't solve frequent coherence transitions.",
+        "b": "Correct. False sharing occurs when different processors access different parts of the same cache line, causing unnecessary invalidations. Restructuring data layout to avoid this improves performance.",
+        "c": "Incorrect. Reducing cores is not a practical solution.",
+        "d": "Incorrect. Memory speed doesn't directly address coherence transition frequency."
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "Based on your simulation experience, how would you optimize a program to minimize cache coherence overhead?",
+      "answers": {
+        "a": "Minimize shared data access and use thread-local data structures when possible",
+        "b": "Use as many shared variables as possible to increase data sharing",
+        "c": "Always write to memory instead of cache to avoid coherence",
+        "d": "Increase the frequency of synchronization operations"
+      },
+      "explanations": {
+        "a": "Correct. Minimizing shared data access and using thread-local data structures reduces cache coherence traffic and improves performance.",
+        "b": "Incorrect. More shared variables increase coherence overhead.",
+        "c": "Incorrect. Bypassing cache eliminates its performance benefits.",
+        "d": "Incorrect. More synchronization increases overhead."
+      },
+      "correctAnswer": "a",
+      "difficulty": "advanced"
+    }
+  ]
+}
